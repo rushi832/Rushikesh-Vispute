@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Rushikesh Vispute - Salesforce Vlocity Developer</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -63,6 +63,25 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+        }
+
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100%;
+        }
+
+        /* Prevent horizontal overflow */
+        * {
+            max-width: 100%;
+        }
+
+        /* Ensure all containers respect viewport */
+        .navbar, .hero, .about, .achievement, .industry-expertise, 
+        .certifications, .experience, .projects, .contact, .footer {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
         }
 
         body {
@@ -1158,6 +1177,8 @@
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 2rem;
+            width: 100%;
+            overflow-x: hidden;
         }
 
         .section-header {
@@ -1307,6 +1328,9 @@
         .about {
             padding: 6rem 0;
             background: var(--sf-gray-1);
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
         }
 
         .about-content {
@@ -1314,6 +1338,12 @@
             grid-template-columns: 2fr 1fr;
             gap: 4rem;
             align-items: start;
+        }
+
+        .about-text {
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
         }
 
         .about-text h3 {
@@ -1352,6 +1382,9 @@
             display: flex;
             flex-direction: column;
             gap: 2rem;
+            width: 100%;
+            max-width: 100%;
+            overflow-x: hidden;
         }
 
         .stat-card {
@@ -1609,6 +1642,129 @@
             .stat-item {
                 min-width: auto;
                 width: 100%;
+            }
+        }
+
+        /* Mobile Responsiveness Fixes */
+        @media (max-width: 768px) {
+            .section-container {
+                padding: 0 1rem;
+            }
+
+            .nav-container {
+                padding: 1rem;
+            }
+
+            .hero {
+                padding: 2rem 0;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+
+            .achievement-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .stat-item {
+                min-width: auto;
+                width: 100%;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-main {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+
+            /* Fix Professional Summary section on mobile */
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .about-text {
+                width: 100%;
+                max-width: 100%;
+            }
+
+            .about-text h3 {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+            }
+
+            .about-text p {
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section-container {
+                padding: 0 0.5rem;
+            }
+
+            .nav-container {
+                padding: 0.5rem;
+            }
+
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .achievement-card {
+                padding: 1.5rem;
+            }
+
+            .stat-item {
+                padding: 0.75rem;
+            }
+
+            /* Additional mobile fixes for Professional Summary */
+            .about-content {
+                gap: 1.5rem;
+            }
+
+            .about-text h3 {
+                font-size: 1.3rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .about-text p {
+                font-size: 0.9rem;
+                line-height: 1.5;
+                margin-bottom: 1rem;
+            }
+
+            .about-stats {
+                margin-top: 1rem;
+            }
+
+            .about-stats .stat-card {
+                padding: 1rem;
+                margin-bottom: 0.8rem;
+            }
+
+            .about-stats .stat-number {
+                font-size: 1.5rem;
+            }
+
+            .about-stats .stat-label {
+                font-size: 0.8rem;
             }
         }
 
@@ -2625,16 +2781,27 @@
 
         /* Custom rocket cursor */
         .rocket-cursor {
-            position: fixed;
-            pointer-events: none;
-            z-index: 10000;
-            font-size: 32px;
-            transform: translate(-50%, -50%);
-            transition: none;
-            user-select: none;
+            position: fixed !important;
+            pointer-events: none !important;
+            z-index: 99999 !important;
+            font-size: 40px !important;
+            transform: translate(-50%, -50%) !important;
+            transition: none !important;
+            user-select: none !important;
             display: block !important;
             opacity: 1 !important;
             visibility: visible !important;
+            left: 0 !important;
+            top: 0 !important;
+        }
+
+        /* Force hide default cursor when game is active */
+        body.game-active {
+            cursor: none !important;
+        }
+
+        body.game-active * {
+            cursor: none !important;
         }
 
         /* Animations */
@@ -5597,18 +5764,25 @@
             }
             
             startGame() {
+                console.log('Starting Space Invaders game...');
+                document.body.classList.add('game-active');
                 this.isActive = true;
                 this.isPaused = false;
                 this.startBtn.style.display = 'none';
                 this.pauseBtn.style.display = 'flex';
                 
                 this.createInvaders();
+                this.createRocketCursor();
                 this.gameLoop = setInterval(() => this.update(), 16); // 60 FPS
                 
                 this.showMessage('Game started! Use A/D or Arrow Keys to move, SPACE to shoot!');
+                console.log('Space Invaders game started, rocket cursor should be active');
             }
             
             pauseGame() {
+                console.log('Pausing game...');
+                document.body.classList.remove('game-active');
+                this.removeRocketCursor();
                 this.isActive = false;
                 this.startBtn.style.display = 'flex';
                 this.pauseBtn.style.display = 'none';
@@ -5618,6 +5792,7 @@
                 }
                 
                 this.showMessage('Mission paused. Click Start to resume.');
+                console.log('Game paused, rocket cursor removed');
             }
             
             levelUp() {
@@ -5893,12 +6068,14 @@
             }
             
             enterFullscreenGame() {
+                console.log('Entering fullscreen game...');
                 this.fullscreenOverlay?.classList.add('active');
                 this.gameToggleBtn.innerHTML = '<i class="fas fa-times"></i><span>Exit Game</span>';
                 document.body.style.overflow = 'hidden'; // Prevent scrolling
                 document.body.classList.add('game-active'); // Add rocket cursor
                 this.createRocketCursor();
                 console.log('Game active class added:', document.body.classList.contains('game-active'));
+                console.log('Rocket cursor element:', this.rocketCursor);
                 this.showMessage('Full-screen Space Invaders! Press ESC to exit.');
             }
             
@@ -5916,28 +6093,58 @@
             }
 
             createRocketCursor() {
+                console.log('Creating rocket cursor...');
+                
                 // Remove existing rocket cursor if any
                 this.removeRocketCursor();
                 
-                // Create rocket cursor element
+                // Create rocket cursor element with explicit styling
                 this.rocketCursor = document.createElement('div');
                 this.rocketCursor.className = 'rocket-cursor';
                 this.rocketCursor.innerHTML = '🚀';
-                this.rocketCursor.style.display = 'block';
-                this.rocketCursor.style.opacity = '1';
+                
+                // Force all styles inline to override any CSS conflicts
+                this.rocketCursor.style.cssText = `
+                    position: fixed !important;
+                    pointer-events: none !important;
+                    z-index: 99999 !important;
+                    font-size: 40px !important;
+                    transform: translate(-50%, -50%) !important;
+                    transition: none !important;
+                    user-select: none !important;
+                    display: block !important;
+                    opacity: 1 !important;
+                    visibility: visible !important;
+                    left: 0px !important;
+                    top: 0px !important;
+                `;
+                
                 document.body.appendChild(this.rocketCursor);
                 
-                // Add mouse move listener
+                // Add mouse move listener with immediate positioning
                 this.mouseMoveHandler = (e) => {
-                    if (this.rocketCursor) {
+                    if (this.rocketCursor && this.rocketCursor.parentNode) {
                         this.rocketCursor.style.left = e.clientX + 'px';
                         this.rocketCursor.style.top = e.clientY + 'px';
                         this.rocketCursor.style.display = 'block';
+                        this.rocketCursor.style.opacity = '1';
+                        this.rocketCursor.style.visibility = 'visible';
                     }
                 };
                 
                 document.addEventListener('mousemove', this.mouseMoveHandler);
-                console.log('Rocket cursor created and should be visible');
+                
+                // Force initial visibility
+                setTimeout(() => {
+                    if (this.rocketCursor) {
+                        this.rocketCursor.style.display = 'block';
+                        this.rocketCursor.style.opacity = '1';
+                        this.rocketCursor.style.visibility = 'visible';
+                        console.log('Rocket cursor forced visible');
+                    }
+                }, 100);
+                
+                console.log('Rocket cursor created with inline styles');
             }
 
             removeRocketCursor() {
@@ -5971,3 +6178,4 @@
     </script>
 </body>
 </html>
+
